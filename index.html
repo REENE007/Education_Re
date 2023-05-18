@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    option = {
+        title:[
+            {
+                top: '10%',//
+                text: '截止2009年5月三省教育重建情况',
+                x:'center'
+            }
+        ],
+        angleAxis: {},
+
+        //极坐标柱状图坐标轴
+        radiusAxis: 
+        {
+            type: 'category',
+            data: ['甘肃', '陕西', '四川', '总体'],
+            z: 10
+        },
+
+        //修改极坐标柱状图位置
+        polar: {
+            center:['25%','60%'],//第一个更改左右，第二个更改上下
+            radius: [30, '70%']//第二个改变大小
+        },
+
+        //grid :更改柱状图大小位置
+        grid:{
+            left: '53%',
+            //right: '5%',
+            top: '25%',
+        },
+
+        //柱状图x、y轴标签
+        xAxis: [
+            {
+                type: 'category',
+                axisTick: { show: false },
+                data: ['总体', '四川', '陕西', '甘肃']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+
+        series: [
+            //极坐标柱状图
+            {
+                type: 'bar',
+                data: [28.2, 52.1, 60.1, 53.5],
+                coordinateSystem: 'polar',
+                name: '开工(未完成)',
+                stack: 'a',
+                emphasis: {
+                    focus: 'series'
+                },
+                label: 
+                {
+                    show: true,  //开启显示
+                    position: 'middle', 
+                    formatter: '{c}%',
+                    textStyle: 
+                    {  //数值样式
+                        color: 'black',
+                        fontSize: 11
+                    }
+                }
+            },
+
+            {
+                type: 'bar',
+                data: [4.6, 44.1, 8.4, 12.1],
+                coordinateSystem: 'polar',
+                name: '竣工',
+                stack: 'a',
+                emphasis: {
+                    focus: 'series'
+                },
+                label: 
+                {
+                    show: true,  //开启显示
+                    position: 'middle', 
+                    formatter: '{c}%',
+                    textStyle: 
+                    {  //数值样式
+                        color: 'black',
+                        fontSize: 11
+                    }
+                }
+            },
+
+            //柱状图
+            {
+                name: '开工(未完成)',
+                type: 'bar',
+                barGap: 0,
+                label: {
+                    show: true,
+                    rotate:90,
+                    align:'left',
+                    verticalAlign:'middle',
+                    position:'insideBottom',
+                    distance:15,
+                    formatter: '开工项目：{c}所',
+                    textStyle: 
+                    {  //数值样式
+                        color: 'black',
+                        fontSize: 13
+                    }
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [2513, 2020, 299, 244]
+            },
+
+            {
+                name: '竣工',
+                type: 'bar',
+                //label: labelOption,
+                emphasis: {
+                    focus: 'series'
+                },
+                label: {
+                    show: true,
+                    rotate:90,
+                    align:'left',
+                    verticalAlign:'middle',
+                    position:'insideBottom',
+                    distance:15,
+                    formatter: '竣工项目：{c}所',
+                    textStyle: 
+                    {  //数值样式
+                        color: 'black',
+                        fontSize: 13
+                    }
+                },
+                data: [569, 227, 253, 39]
+            }
+        ],
+        legend: {
+            top:'15%',
+            show: true,
+            data: ['开工(未完成)', '竣工']
+        }
+        
+    };
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>   
+
+
